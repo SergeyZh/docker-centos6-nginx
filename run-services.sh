@@ -1,0 +1,33 @@
+#!/bin/sh
+
+if [ ! -z "${GITPATH}" ] ; then
+    rm -rf /etc/confd/*
+    echo "Cloning ${GITPATH} repo"
+    RETVAL=-1
+    while [ ${RETVAL} -ne 0 ]; do
+	git clone ${GITPATH} /etc/confd
+	let RETVAL=$?
+	sleep 5
+    done
+else
+    echo "Using default configuration. You should set GITPATH to git repo with confd configuration."
+    echo "Use git://github.com/SergeyZh/confd-nginx-default.git as example."
+fi
+
+if [ ! -z "${CONFD_PARAMS}" ] ; then
+    echo "other_args=${CONFD_PARAMS}" > /etc/sysconfig/confd
+fi
+
+trap "/sbin/service crond stop; /sbin/service rsyslog stop; /sbin/service nginx stop" SIGINT SIGTERM SIGHUP
+
+/sbin/service rsyslog start
+/sbin/service crond start
+
+/sbin/service nginx start
+/sbin/service confd start
+
+touch /var/log/container.log
+tail -F -q /var/log/container.log
+
+wait
+
