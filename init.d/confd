@@ -43,7 +43,7 @@ start() {
     [ -x $exec ] || exit 5
 
     if ! [ -f $pidfile ]; then
-	echo "CONFD_PARAMS=${CONFD_PARAMS}
+	echo "CONFD_PARAMS=${CONFD_PARAMS}"
         prestart
         printf "Starting $prog:\t"
         echo "\n$(date)\n" >> $logfile
