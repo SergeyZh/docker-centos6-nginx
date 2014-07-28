@@ -1,7 +1,7 @@
 #!/bin/sh
 
 if [ ! -z "${GITPATH}" ] ; then
-    rm -rf /etc/confd/*
+    rm -rf /etc/confd/
     echo "Cloning ${GITPATH} repo"
     RETVAL=-1
     while [ ${RETVAL} -ne 0 ]; do
