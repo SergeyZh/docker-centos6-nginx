@@ -8,8 +8,8 @@ ADD rpms/ /root/rpms/
 RUN yum localinstall -y /root/rpms/*.rpm
 
 ADD crontab.root /root/
-RUN crontab -uroot /root/crontab.root
 RUN sed -i "/pam_loginuid.so/ s/\(.*\)/#\1/" /etc/pam.d/crond
+RUN crontab -uroot /root/crontab.root
 
 ADD update-git-repo.sh /root/scripts/
 
