@@ -43,8 +43,10 @@ start() {
     [ -x $exec ] || exit 5
 
     if ! [ -f $pidfile ]; then
-	echo "CONFD_PARAMS=${CONFD_PARAMS}"
-        prestart
+	if [ -z "${other_args}" ] ; then
+	    echo "Starting local etcd, because CONFD_PARAMS was not set."
+    	    prestart
+    	fi
         printf "Starting $prog:\t"
         echo "\n$(date)\n" >> $logfile
         $exec $other_args &>> $logfile &

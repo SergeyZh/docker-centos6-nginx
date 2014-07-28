@@ -1,1 +1,1 @@
-* * * * *  /root/scripts/update-git-repo.sh
+*/10 * * * *  /root/scripts/update-git-repo.sh

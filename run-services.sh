@@ -15,10 +15,12 @@ else
 fi
 
 if [ ! -z "${CONFD_PARAMS}" ] ; then
-    echo "other_args=${CONFD_PARAMS}" > /etc/sysconfig/confd
+    echo "other_args=\"${CONFD_PARAMS}\"" > /etc/sysconfig/confd
 fi
 
-trap "/sbin/service crond stop; /sbin/service rsyslog stop; /sbin/service nginx stop" SIGINT SIGTERM SIGHUP
+trap "/sbin/service crond stop; /sbin/service rsyslog stop; /sbin/service nginx stop; /sbin/service confd stop" SIGINT SIGTERM SIGHUP
+
+touch /var/log/confd /var/log/etcd
 
 /sbin/service rsyslog start
 /sbin/service crond start
@@ -27,7 +29,7 @@ trap "/sbin/service crond stop; /sbin/service rsyslog stop; /sbin/service nginx 
 /sbin/service confd start
 
 touch /var/log/container.log
-tail -F -q /var/log/container.log
+tail -F /var/log/container.log /var/log/confd /var/log/etcd &
 
 wait
 
