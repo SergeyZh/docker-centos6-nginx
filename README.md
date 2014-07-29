@@ -8,6 +8,7 @@ CentOS6 + Nginx 1.7.0 + confd + etcd
 
 * `GITPATH` path to git repository with /etc/confd configuration
 * `CONFD_PARAMS` parameters passed to `confd` daemon. 
+* `CONFD_PARAMS_BASE64` parameters passed to `confd` daemon encoded by base64 to avoid quotes.
 
 ### SSH private keys
 You may need to access private GIT repository with confd config files. In such case you have put ssh config file and private key to folder `/sshconfig`.
