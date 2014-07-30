@@ -1,6 +1,7 @@
 #!/bin/bash
 
-if [ -z "${GITPATH}" ] ; then
+# Check: if no GIT repo here - no need to pull it
+if [ ! -d /etc/confd/.git ] ; then
     exit 0
 fi
 
