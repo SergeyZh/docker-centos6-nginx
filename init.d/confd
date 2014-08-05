@@ -69,6 +69,7 @@ stop() {
     retval=$?
     echo
     [ $retval -eq 0 ] && rm -f $lockfile
+    rm -f $pidfile
     return $retval
 }
 
@@ -99,7 +100,7 @@ case "$1" in
         $1
         ;;
     stop)
-        rh_status_q || exit 0
+        rh_status_q || rm -f $pidfile ; exit 0
         $1
         ;;
     restart)

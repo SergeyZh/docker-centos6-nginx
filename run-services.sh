@@ -24,7 +24,7 @@ fi
 
 echo "CONFD_PARAMS=${CONFD_PARAMS}"
 
-trap "/sbin/service crond stop; /sbin/service rsyslog stop; /sbin/service nginx stop; /sbin/service confd stop" SIGINT SIGTERM SIGHUP
+trap "/sbin/service crond stop; /sbin/service rsyslog stop; /sbin/service nginx stop; /sbin/service etcd stop; /sbin/service confd stop; killall tail; exit 0" SIGINT SIGTERM SIGHUP
 
 touch /var/log/confd /var/log/etcd
 
