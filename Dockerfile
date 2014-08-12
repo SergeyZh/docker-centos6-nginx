@@ -1,11 +1,16 @@
 FROM sergeyzh/centos6-epel
 
-MAINTAINER Sergey Zhukov, sergey@jetbrains.com
+MAINTAINER Sergey Zhukov, sergey@jetbrains.com; Andrey Sizov, andrey.sizov@jetbrains.com
+
+RUN mkdir -p /conf/nginx/conf.d
+
+VOLUME ["/conf/"]
 
 RUN cp -f /usr/share/zoneinfo/Europe/Moscow /etc/localtime
 
-ADD rpms/ /root/rpms/
-RUN yum localinstall -y /root/rpms/*.rpm
+#ADD rpms/ /root/rpms/
+#RUN yum localinstall -y /root/rpms/*.rpm
+RUN yum install -y git cronie
 
 ADD crontab.root /root/
 RUN sed -i "/pam_loginuid.so/ s/\(.*\)/#\1/" /etc/pam.d/crond
@@ -28,5 +33,3 @@ ADD run-services.sh /
 RUN chmod +x /run-services.sh
 
 CMD /run-services.sh
-
-EXPOSE 80 443

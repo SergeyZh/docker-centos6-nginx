@@ -35,6 +35,7 @@ prestart() {
 
     if [[ $? != 0 ]]; then
         service etcd start
+        sleep 2
     fi
 
 }
