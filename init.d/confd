@@ -44,10 +44,15 @@ start() {
     [ -x $exec ] || exit 5
 
     if ! [ -f $pidfile ]; then
-	if [ -z "${other_args}" ] ; then
-	    echo "Starting local etcd, because CONFD_PARAMS was not set."
-    	    prestart
-    	fi
+        if [ -z "${other_args}" ] ; then
+            echo "Starting local etcd, because CONFD_PARAMS was not set."
+            prestart
+        fi
+        node_check=`echo ${other_args} | grep -i "\-node"`
+        if [ -z "${node_check}" ] ; then
+            echo "Starting local etcd, because no -node param was set in CONFD_PARAMS."
+            prestart
+        fi
         printf "Starting $prog:\t"
         echo "\n$(date)\n" >> $logfile
         $exec $other_args &>> $logfile &
