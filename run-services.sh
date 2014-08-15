@@ -9,6 +9,9 @@ if [ ! -z "${GITPATH}" ] ; then
 	let RETVAL=$?
 	sleep 5
     done
+    if [ -x "/etc/confd/config-reload.sh" ] ; then
+	/etc/confd/config-reload.sh
+    fi
 else
     echo "Using default configuration. You should set GITPATH to git repo with confd configuration."
     echo "Use git://github.com/SergeyZh/confd-nginx-default.git as example."
