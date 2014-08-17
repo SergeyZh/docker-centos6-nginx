@@ -2,7 +2,7 @@
 
 . /functions.sh
 
-ETCDCTL_WATCH=/services/phpfpm/reload
+ETCDCTL_WATCH=/services/nginx/reload
 if [ ! -z "$1" ] ; then
     ETCDCTL_WATCH=$1
 fi
