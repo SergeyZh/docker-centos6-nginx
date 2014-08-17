@@ -1,11 +1,11 @@
 [template]
 src   = "nginx.conf.tmpl"
-dest  = "/etc/nginx/nginx.conf"
+dest  = "/conf/nginx/nginx.conf"
 owner = "root"
 group = "root"
 mode  = "0644"
 keys = [
   "/",
 ]
-check_cmd  = "/usr/sbin/nginx -t -c {{ .src }}"
-reload_cmd = "/usr/sbin/service nginx reload"
+
+reload_cmd = "etcdctl set /services/nginx/reload reload"
