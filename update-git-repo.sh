@@ -14,6 +14,6 @@ if [ $CHANGED -eq 1 ]; then
     if [ -x "/etc/confd/config-reload.sh" ] ; then
        /etc/confd/config-reload.sh
     fi
-    /etc/init.d/confd restart
+    /sbin/service confd restart
 
 fi

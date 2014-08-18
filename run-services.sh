@@ -25,14 +25,18 @@ if [ ! -z "${CONFD_PARAMS}" ] ; then
     echo "other_args=\"${CONFD_PARAMS}\"" > /etc/sysconfig/confd
 fi
 
+if [ ! -z "${ETCDCTL_PEERS}" ] ; then
+   echo "export ETCDCTL_PEERS=\"${ETCDCTL_PEERS}\"" >> /etc/sysconfig/confd
+fi
+
 echo "CONFD_PARAMS=${CONFD_PARAMS}"
 
-trap "/etc/init.d/crond stop; /etc/init.d/etcd stop; /etc/init.d/confd stop; killall tail; exit 0" SIGINT SIGTERM SIGHUP
+trap "/sbin/service crond stop; /sbin/service etcd stop; /sbin/service confd stop; killall tail; exit 0" SIGINT SIGTERM SIGHUP
 
 touch /var/log/confd /var/log/etcd
 
-/etc/init.d/crond start
-/etc/init.d/confd start
+/sbin/service crond start
+/sbin/service confd start
 
 touch /var/log/container.log
 tail -F /var/log/container.log /var/log/confd /var/log/etcd &
