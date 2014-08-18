@@ -12,8 +12,8 @@ git pull | grep -q -v 'up-to-date' && CHANGED=1
 if [ $CHANGED -eq 1 ]; then
     echo "Git repo was changed" >> /var/log/container.log
     if [ -x "/etc/confd/config-reload.sh" ] ; then
-	/etc/confd/config-reload.sh
+       /etc/confd/config-reload.sh
     fi
-    /sbin/service confd restart
+    /etc/init.d/confd restart
 
 fi
