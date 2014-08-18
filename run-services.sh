@@ -14,7 +14,7 @@ if [ ! -z "${GITPATH}" ] ; then
     fi
 else
     echo "Using default configuration. You should set GITPATH to git repo with confd configuration."
-    echo "Use git://github.com/SergeyZh/confd-nginx-default.git as example."
+    echo "Use git://github.com/varsy/configurator-nginx-demo.git as example."
 fi
 
 if [ ! -z "${CONFD_PARAMS_BASE64}" ] ; then
@@ -27,12 +27,12 @@ fi
 
 echo "CONFD_PARAMS=${CONFD_PARAMS}"
 
-trap "/sbin/service crond stop; /sbin/service etcd stop; /sbin/service confd stop; killall tail; exit 0" SIGINT SIGTERM SIGHUP
+trap "/etc/init.d/crond stop; /etc/init.d/etcd stop; /etc/init.d/confd stop; killall tail; exit 0" SIGINT SIGTERM SIGHUP
 
 touch /var/log/confd /var/log/etcd
 
-/sbin/service crond start
-/sbin/service confd start
+/etc/init.d/crond start
+/etc/init.d/confd start
 
 touch /var/log/container.log
 tail -F /var/log/container.log /var/log/confd /var/log/etcd &
