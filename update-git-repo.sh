@@ -1,4 +1,5 @@
 #!/bin/bash
+. /etc/sysconfig/etcdctl
 
 # Check: if no GIT repo here - no need to pull it
 if [ ! -d /etc/confd/.git ] ; then

@@ -17,6 +17,8 @@ else
     echo "Use git://github.com/varsy/configurator-nginx-demo.git as example."
 fi
 
+set | grep -E "ETCDCTL_PEERS" > /etc/sysconfig/etcdctl
+
 if [ ! -z "${CONFD_PARAMS_BASE64}" ] ; then
     CONFD_PARAMS=`echo ${CONFD_PARAMS_BASE64} | openssl base64 -d`
 fi
