@@ -29,6 +29,9 @@ RUN chmod +x /usr/sbin/confd
 ADD confd /etc/confd/
 ADD init.d /etc/rc.d/init.d/
 
+ADD reloader.sh /
+RUN chmod a+x /reloader.sh
+
 ADD run-services.sh /
 RUN chmod +x /run-services.sh
 

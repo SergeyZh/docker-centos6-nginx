@@ -33,12 +33,17 @@ fi
 
 echo "CONFD_PARAMS=${CONFD_PARAMS}"
 
-trap "/sbin/service crond stop; /sbin/service etcd stop; /sbin/service confd stop; killall tail; exit 0" SIGINT SIGTERM SIGHUP
+trap "/sbin/service crond stop; /sbin/service etcd stop; /sbin/service confd stop; killall reloader.sh; killall etcdctl; killall tail; exit 0" SIGINT SIGTERM SIGHUP
 
 touch /var/log/confd /var/log/etcd
 
 /sbin/service crond start
 /sbin/service confd start
+
+if [ ! -z "${ETCDCTL_PEERS}" ] ; then
+    export ETCDCTL_PEERS
+    /reloader.sh ${ETCDCTL_WATCH} &
+fi
 
 touch /var/log/container.log
 tail -F /var/log/container.log /var/log/confd /var/log/etcd &

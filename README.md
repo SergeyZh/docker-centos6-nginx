@@ -13,6 +13,7 @@ You could get those configuration files from `/conf/` directory using `--volumes
 * `CONFD_PARAMS` parameters passed to `confd` daemon. 
 * `CONFD_PARAMS_BASE64` parameters passed to `confd` daemon encoded by base64 to avoid quotes.
 * `ETCDCTL_PEERS` parameter to tell `etcd` peer address to work with.
+* `ETCDCTL_WATCH` path inside etcd to watch reload signal. Optional. Default: `/services/configurator/reload`
 
 ### SSH private keys
 You may need to access private GIT repository with confd config files. In such case you have put ssh config file and private key to folder `/sshconfig`.
