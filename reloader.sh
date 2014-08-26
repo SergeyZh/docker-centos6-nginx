@@ -10,7 +10,6 @@ while true ; do
     
     if [ "${RESULT}" == "updated" ] ; then
 	echo "`date +%Y-%m-%d-%H%M%S` - Catched reload action. Reloading..." >> /var/log/container.log
-	/root/scripts/update-git-repo.sh
 	/sbin/service confd restart
     fi
     # To reduce CPU usage on etcd errors
