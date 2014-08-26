@@ -8,18 +8,6 @@ VOLUME ["/conf/"]
 
 RUN cp -f /usr/share/zoneinfo/Europe/Moscow /etc/localtime
 
-#ADD rpms/ /root/rpms/
-#RUN yum localinstall -y /root/rpms/*.rpm
-RUN yum install -y git cronie
-
-ADD crontab.root /root/
-RUN sed -i "/pam_loginuid.so/ s/\(.*\)/#\1/" /etc/pam.d/crond
-RUN crontab -uroot /root/crontab.root
-
-ADD update-git-repo.sh /root/scripts/
-
-RUN ln -s /sshconfig /root/.ssh
-
 ADD etcd-v0.4.5-linux-amd64.tar.gz /
 RUN cd /etcd-v0.4.5-linux-amd64 ; mv etcdctl /usr/bin/ ; mv etcd /usr/sbin/ ; rm -rf /etcd-v0.4.5-linux-amd64
 
