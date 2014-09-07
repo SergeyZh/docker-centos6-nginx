@@ -18,6 +18,9 @@ ADD functions.sh /
 ADD run-services.sh /
 RUN chmod +x /run-services.sh ; mkdir -p /conf/nginx
 
+# Change config paths to relative
+RUN sed -i 's|/etc/nginx/||g' /etc/nginx/nginx.conf
+
 CMD /run-services.sh
 
 EXPOSE 80 443
