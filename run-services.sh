@@ -24,6 +24,7 @@ trap "/sbin/service etcd stop; /sbin/service confd stop; killall reloader.sh; ki
 
 touch /var/log/confd /var/log/etcd
 
+sleep 3
 /sbin/service confd start
 
 if [ ! -z "${ETCDCTL_PEERS}" ] ; then
