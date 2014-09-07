@@ -10,6 +10,10 @@ while true ; do
     
     if [ "${RESULT}" == "updated" ] ; then
 	echo "`date +%Y-%m-%d-%H%M%S` - Catched reload action. Reloading..." >> /var/log/container.log
+	if [ -x "/etc/confd/config-reload.sh" ] ; then
+	    /etc/confd/config-reload.sh >> /var/log/container.log
+	fi
+
 	/sbin/service confd restart
     fi
     # To reduce CPU usage on etcd errors
