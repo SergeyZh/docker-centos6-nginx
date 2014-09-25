@@ -2,8 +2,6 @@ FROM sergeyzh/centos6-epel
 
 MAINTAINER Sergey Zhukov, sergey@jetbrains.com
 
-RUN cp -f /usr/share/zoneinfo/Europe/Moscow /etc/localtime
-
 ADD rpms/ /root/rpms/
 RUN yum localinstall -y /root/rpms/*.rpm
 
