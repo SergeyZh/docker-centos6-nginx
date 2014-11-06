@@ -8,10 +8,16 @@ if [ ! -z "$1" ] ; then
 fi
 
 while true ; do
-    RESULT=`etcdctl watch ${ETCDCTL_WATCH}`
-    
+    # Check for missed update
+    RESULT=`etcdctl get ${ETCDCTL_WATCH}`
+
+    if [ "${RESULT}" != "reload" ] ; then
+        RESULT=`etcdctl watch ${ETCDCTL_WATCH}`
+    fi
+
     if [ "${RESULT}" == "reload" ] ; then
-	echo "Catched reload action. Reloading..."
+        etcdctl set ${ETCDCTL_WATCH} empty
+	echo "`date +%Y-%m-%d-%H%M%S` - Catched reload action. Reloading..."  >> /var/log/container.log
 	reload_nginx_config
     fi
     # To reduce CPU usage on etcd errors
