@@ -23,4 +23,5 @@ RUN chmod a+x /reloader.sh
 ADD run-services.sh /
 RUN chmod +x /run-services.sh
 
+
 CMD /run-services.sh
