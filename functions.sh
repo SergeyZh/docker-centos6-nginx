@@ -14,8 +14,10 @@ reload_nginx_config() {
 	    # Copy tested configuration to production and reload
 	    cp -rfp /tmp/nginx /etc/
 	    /sbin/service nginx reload
+	    etcdctl set ${ETCDCTL_NOTIFY} reloaded
 	    echo "New configuration applied"
 	else
+	    etcdctl set ${ETCDCTL_NOTIFY} error
 	    echo "New configuration NOT applied"
 	fi
 	
