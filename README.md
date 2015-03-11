@@ -16,5 +16,5 @@ CentOS6 + Nginx 1.7.0 + configurator support
  docker run -d -e -e ETCDCTL_PEERS="172.17.42.1:4001" \
 	-e ETCDCTL_WATCH=/services/nginx/reload \
 	-e ETCDCTL_NOTIFY=/services/nginx/notify \
-	--volumes-from=configurator sergeyzh/centos6-nginx:ext-cfg
+	--volumes-from=configurator sergeyzh/centos6-nginx
 ```
