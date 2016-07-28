@@ -1,7 +1,7 @@
 docker-centos6-nginx
 ====================
 
-CentOS6 + Nginx 1.8.0 + configurator support
+CentOS6 + Nginx 1.10.1 + configurator support
 
 
 ### List of environment variables
